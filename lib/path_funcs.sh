@@ -18,6 +18,14 @@ function elixir_path() {
   echo "$(platform_tools_path)/elixir"
 }
 
+function node_path() {
+  echo "$(platform_tools_path)/node"
+}
+
+function yarn_path() {
+  echo "$(platform_tools_path)/yarn"
+}
+
 function erlang_build_path() {
   echo "${cache_path}/erlang"
 }
@@ -44,4 +52,8 @@ function app_frontend_path() {
 
 function app_backend_path() {
   echo "${build_path}/back"
+}
+
+function app_backend_assets_path() {
+  echo "${build_path}/back/${phx_assets_path}"
 }

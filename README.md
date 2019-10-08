@@ -167,3 +167,11 @@ We only create a new tag/release when we've made breaking changes. So consider a
 ## Credits
 
 &copy; Akash Manohar under The MIT License. Feel free to do whatever you want with it.
+
+
+## TODO 
+
+add documentation for :
+- [ ] node_version
+- [ ] yarn_version
+- [ ] phx_assets_path

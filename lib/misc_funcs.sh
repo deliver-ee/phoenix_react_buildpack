@@ -20,7 +20,6 @@ function output_section() {
   echo "${indentation} $1"
 }
 
-
 function load_config() {
   output_section "Checking Erlang and Elixir versions"
 
@@ -29,8 +28,7 @@ function load_config() {
   # Source for default versions file from buildpack first
   source "${build_pack_path}/buildpack.config"
 
-  if [ -f $custom_config_file ];
-  then
+  if [ -f $custom_config_file ]; then
     source $custom_config_file
   else
     output_line "WARNING: buildpack.config wasn't found in the app"
@@ -41,8 +39,8 @@ function load_config() {
   output_line "* Stack ${STACK}"
   output_line "* Erlang ${erlang_version}"
   output_line "* Elixir ${elixir_version[0]} ${elixir_version[1]}"
+  output_line "* Node ${node_version}"
 }
-
 
 function export_env_vars() {
   whitelist_regex=${2:-''}
@@ -51,7 +49,7 @@ function export_env_vars() {
     output_section "Will export the following config vars:"
     for e in $(ls $env_path); do
       echo "$e" | grep -E "$whitelist_regex" | grep -vE "$blacklist_regex" &&
-      export "$e=$(cat $env_path/$e)"
+        export "$e=$(cat $env_path/$e)"
       :
     done
   fi
@@ -80,7 +78,7 @@ function check_stack() {
     rm -rf ${cache_path}/*
   fi
 
-  echo "${STACK}" > "${cache_path}/stack"
+  echo "${STACK}" >"${cache_path}/stack"
 }
 
 function clean_cache() {

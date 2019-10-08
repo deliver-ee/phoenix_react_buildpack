@@ -20,6 +20,7 @@ source ${build_pack_path}/lib/path_funcs.sh
 source ${build_pack_path}/lib/misc_funcs.sh
 source ${build_pack_path}/lib/erlang_funcs.sh
 source ${build_pack_path}/lib/elixir_funcs.sh
+source ${build_pack_path}/lib/node_funcs.sh
 source ${build_pack_path}/lib/app_funcs.sh
 
 mkdir $(platform_tools_path)
@@ -37,9 +38,13 @@ install_erlang
 download_elixir
 install_elixir
 
+download_node
+install_node
+
 restore_mix
 install_hex
 install_rebar
+install_yarn
 
 extract_backend_to_root
 
@@ -48,11 +53,18 @@ hook_pre_app_dependencies
 app_dependencies
 copy_hex
 
-hook_pre_compile
-compile_app
-hook_post_compile
+install_frontend_deps
+compile_frontend
+move_frontend_dist
 
-backup_app
+install_backend_js_deps
+compile_backend_js
+
+# hook_pre_compile
+# compile_app
+# hook_post_compile
+
+# backup_app
 backup_mix
 write_profile_d_script
 write_export

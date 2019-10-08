@@ -105,28 +105,6 @@ function compile_app() {
   cd - >/dev/null
 }
 
-function post_compile_hook() {
-  cd $build_path
-
-  if [ -n "$post_compile" ]; then
-    output_section "Executing DEPRECATED post compile: $post_compile"
-    $post_compile || exit 1
-  fi
-
-  cd - >/dev/null
-}
-
-function pre_compile_hook() {
-  cd $build_path
-
-  if [ -n "$pre_compile" ]; then
-    output_section "Executing DEPRECATED pre compile: $pre_compile"
-    $pre_compile || exit 1
-  fi
-
-  cd - >/dev/null
-}
-
 function write_profile_d_script() {
   output_section "Creating .profile.d with env vars"
   mkdir -p $build_path/.profile.d
@@ -159,6 +137,8 @@ function write_export() {
 }
 
 function extract_backend_to_root() {
+  output_section "Extract backend code to build dir"
+
   cd "${build_dir}"
   mv $(app_backend_path)/* .
   mv $(app_backend_path)/.* .
