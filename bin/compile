@@ -36,12 +36,12 @@ install_erlang
 
 download_elixir
 install_elixir
+
 restore_mix
 install_hex
 install_rebar
 
-# deprecated_hook, here for backwards compatibility
-pre_compile_hook
+extract_backend_to_root
 
 restore_app
 hook_pre_app_dependencies
@@ -56,6 +56,3 @@ backup_app
 backup_mix
 write_profile_d_script
 write_export
-
-# deprecated_hook, here for backwards compatibility
-post_compile_hook

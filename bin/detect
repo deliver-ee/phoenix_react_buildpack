@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-mix_file_url="$1/mix.exs"
+mix_file_url="$1/back/mix.exs"
+package_file_url="$1/front/package.json"
 
-if [ -f $mix_file_url ];
+# shellcheck disable=SC2086
+if [ -f $mix_file_url -a -f package_file_url ];
 then
-  echo "Elixir"
+  echo "Elixir backend && JS frontend detected"
   exit 0
 else
   exit 1

@@ -12,11 +12,9 @@ function restore_app() {
   fi
 }
 
-
 function copy_hex() {
   mkdir -p ${build_path}/.mix/archives
   mkdir -p ${build_path}/.hex
-
 
   # hex is a directory from elixir-1.3.0
   full_hex_file_path=$(ls -dt ${HOME}/.mix/archives/hex-* | head -n 1)
@@ -45,7 +43,7 @@ function hook_pre_app_dependencies() {
     $hook_pre_fetch_dependencies || exit 1
   fi
 
-  cd - > /dev/null
+  cd - >/dev/null
 }
 
 function hook_pre_compile() {
@@ -56,7 +54,7 @@ function hook_pre_compile() {
     $hook_pre_compile || exit 1
   fi
 
-  cd - > /dev/null
+  cd - >/dev/null
 }
 
 function hook_post_compile() {
@@ -67,7 +65,7 @@ function hook_post_compile() {
     $hook_post_compile || exit 1
   fi
 
-  cd - > /dev/null
+  cd - >/dev/null
 }
 
 function app_dependencies() {
@@ -81,9 +79,8 @@ function app_dependencies() {
   mix deps.get --only $MIX_ENV || exit 1
 
   export GIT_DIR=$git_dir_value
-  cd - > /dev/null
+  cd - >/dev/null
 }
-
 
 function backup_app() {
   # Delete the previous backups
@@ -93,7 +90,6 @@ function backup_app() {
   cp -pR ${build_path}/deps/* $(deps_backup_path)
   cp -pR ${build_path}/_build/* $(build_backup_path)
 }
-
 
 function compile_app() {
   local git_dir_value=$GIT_DIR
@@ -106,7 +102,7 @@ function compile_app() {
   mix deps.clean --unused
 
   export GIT_DIR=$git_dir_value
-  cd - > /dev/null
+  cd - >/dev/null
 }
 
 function post_compile_hook() {
@@ -117,7 +113,7 @@ function post_compile_hook() {
     $post_compile || exit 1
   fi
 
-  cd - > /dev/null
+  cd - >/dev/null
 }
 
 function pre_compile_hook() {
@@ -128,7 +124,7 @@ function pre_compile_hook() {
     $pre_compile || exit 1
   fi
 
-  cd - > /dev/null
+  cd - >/dev/null
 }
 
 function write_profile_d_script() {
@@ -144,7 +140,7 @@ function write_profile_d_script() {
                  export MIX_ENV=${MIX_ENV}"
   fi
 
-  echo $export_line >> $build_path/.profile.d/elixir_buildpack_paths.sh
+  echo $export_line >>$build_path/.profile.d/elixir_buildpack_paths.sh
 }
 
 function write_export() {
@@ -159,5 +155,12 @@ function write_export() {
                  export MIX_ENV=${MIX_ENV}"
   fi
 
-  echo $export_line > $build_pack_path/export
+  echo $export_line >$build_pack_path/export
+}
+
+function extract_backend_to_root() {
+  cd "${build_dir}"
+  mv $(app_backend_path)/* .
+  mv $(app_backend_path)/.* .
+  rmdir $(app_backend_path)
 }
