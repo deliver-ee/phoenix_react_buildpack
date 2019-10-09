@@ -118,7 +118,7 @@ function write_profile_d_script() {
                  export MIX_ENV=${MIX_ENV}"
   fi
 
-  echo $export_line >>$build_path/.profile.d/buildpack_paths.sh
+  echo $export_line >>$build_path/.profile.d/phoenix_js_front_buildpack_paths.sh
 }
 
 function write_export() {

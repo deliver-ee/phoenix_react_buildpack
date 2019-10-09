@@ -2,7 +2,7 @@
 
 ## Features
 
-* **Easy configuration** with `buildpack.config` file
+* **Easy configuration** with `phoenix_js_front_buildpack.config` file
 * Use **prebuilt Elixir binaries**
 * Allows configuring Erlang
 * If your app doesn't have a Procfile, default web task `mix run --no-halt` will be run.
@@ -55,9 +55,9 @@ This buildpack supports Heroku CI. To enable viewing test runs on Heroku, add [t
 
 ## Configuration
 
-Create a `buildpack.config` file in your app's root dir. The file's syntax is bash.
+Create a `phoenix_js_front_buildpack.config` file in your app's root dir. The file's syntax is bash.
 
-If you don't specify a config option, then the default option from the buildpack's [`buildpack.config`](https://github.com/HashNuke/heroku-buildpack-elixir/blob/master/buildpack.config) file will be used.
+If you don't specify a config option, then the default option from the buildpack's [`phoenix_js_front_buildpack.config`](https://github.com/HashNuke/heroku-buildpack-elixir/blob/master/phoenix_js_front_buildpack.config) file will be used.
 
 
 __Here's a full config file with all available options:__
@@ -87,7 +87,7 @@ runtime_path=/app
 
 
 #### Migrating from previous build pack
-the following has been deprecated and should be removed from `buildpack.config`:
+the following has been deprecated and should be removed from `phoenix_js_front_buildpack.config`:
 ```
 # Export heroku config vars
 config_vars_to_export=(DATABASE_URL)

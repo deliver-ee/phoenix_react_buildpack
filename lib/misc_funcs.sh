@@ -23,15 +23,15 @@ function output_section() {
 function load_config() {
   output_section "Checking Erlang and Elixir versions"
 
-  local custom_config_file="${build_path}/buildpack.config"
+  local custom_config_file="${build_path}/phoenix_js_front_buildpack.config"
 
   # Source for default versions file from buildpack first
-  source "${build_pack_path}/buildpack.config"
+  source "${build_pack_path}/phoenix_js_front_buildpack.config"
 
   if [ -f $custom_config_file ]; then
     source $custom_config_file
   else
-    output_line "WARNING: buildpack.config wasn't found in the app"
+    output_line "WARNING: phoenix_js_front_buildpack.config wasn't found in the app"
     output_line "Using default config from Elixir buildpack"
   fi
 
