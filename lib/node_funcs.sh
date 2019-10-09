@@ -232,11 +232,11 @@ finalize_node() {
 #  echo $export_line >>$build_dir/.profile.d/phoenix_static_buildpack_paths.sh
 #}
 
-#remove_node() {
-#  output_line "Removing node and node_modules"
-#  rm -rf $assets_dir/node_modules
-#  rm -rf $heroku_dir/node
-#}
+remove_node() {
+  output_line "Removing node and node_modules"
+  rm -rf $assets_dir/node_modules
+  rm -rf $heroku_dir/node
+}
 
 function node_download_file() {
   echo node-v${node_version}-linux-x64.tar.gz
