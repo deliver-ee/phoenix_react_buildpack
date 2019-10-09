@@ -146,7 +146,7 @@ compile_frontend() {
 move_frontend_dist() {
   output_section "Move frontend dist to phoenix priv folder"
 
-  mv $(app_frontend_path)/build "$(app_backend_path)/priv/front"
+  mv $(app_frontend_path)/build "$(app_backend_path)/priv/static/app"
 }
 
 compile_backend_js() {
