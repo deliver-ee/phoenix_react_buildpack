@@ -60,11 +60,11 @@ move_frontend_dist
 install_backend_js_deps
 compile_backend_js
 
-# hook_pre_compile
-# compile_app
-# hook_post_compile
+ hook_pre_compile
+ compile_app
+ hook_post_compile
 
-# backup_app
+backup_app
 backup_mix
 write_profile_d_script
 write_export

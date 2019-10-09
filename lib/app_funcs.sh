@@ -87,15 +87,15 @@ function backup_app() {
   rm -rf $(deps_backup_path) $(build_backup_path)
 
   mkdir -p $(deps_backup_path) $(build_backup_path)
-  cp -pR ${build_path}/deps/* $(deps_backup_path)
-  cp -pR ${build_path}/_build/* $(build_backup_path)
+  cp -pR $(app_backend_path)/deps/* $(deps_backup_path)
+  cp -pR $(app_backend_path)/_build/* $(build_backup_path)
 }
 
 function compile_app() {
   local git_dir_value=$GIT_DIR
   unset GIT_DIR
 
-  cd $build_path
+  cd $(app_backend_path)
   output_section "Compiling"
   mix compile --force || exit 1
 
