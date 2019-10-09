@@ -58,17 +58,17 @@ install_yarn() {
   if [ -f $frontend_yarn -a -f $backend_yarn ]; then
 
     if [ ! $yarn_version ]; then
-      info "Downloading and installing yarn lastest..."
+      output_line "Downloading and installing yarn lastest..."
       local download_url="https://yarnpkg.com/latest.tar.gz"
     else
-      info "Downloading and installing yarn $yarn_version..."
+      output_line "Downloading and installing yarn $yarn_version..."
       local download_url="https://yarnpkg.com/downloads/$yarn_version/yarn-v$yarn_version.tar.gz"
     fi
 
     local code=$(curl "$download_url" -L --silent --fail --retry 5 --retry-max-time 15 -o /tmp/yarn.tar.gz --write-out "%{http_code}")
 
     if [ "$code" != "200" ]; then
-      info "Unable to download yarn: $code" && false
+      output_line "Unable to download yarn: $code" && false
     fi
 
     rm -rf $(yarn_path)
@@ -82,9 +82,9 @@ install_yarn() {
     chmod +x $(yarn_path)/bin/*
     PATH=$(yarn_path)/bin:$PATH
 
-    info "Installed yarn $(yarn --version)"
+    output_line "Installed yarn $(yarn --version)"
   else
-    info "Yarn not detected in project: No install needed."
+    output_line "Yarn not detected in project: No install needed."
   fi
 }
 
