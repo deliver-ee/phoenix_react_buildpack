@@ -9,5 +9,6 @@ then
   echo "Elixir backend && JS frontend detected"
   exit 0
 else
+  echo "Buildpack does not apply"
   exit 1
 fi
