@@ -4,7 +4,9 @@ mix_file_url="$1/back/mix.exs"
 package_file_url="$1/front/package.json"
 
 # shellcheck disable=SC2086
-if [ -f $mix_file_url -a -f package_file_url ];
+echo "Launch Phoenix and JS frontend buildpack ..."
+
+if [ -f "$mix_file_url" ] && [ -f "$package_file_url" ];
 then
   echo "Elixir backend && JS frontend detected"
   exit 0
