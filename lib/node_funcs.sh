@@ -160,6 +160,7 @@ compile_backend_js() {
     npm deploy
   fi
 
+  cd "$(app_backend_path)"
   mix phx.digest
 }
 
