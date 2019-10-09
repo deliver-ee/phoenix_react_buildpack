@@ -110,7 +110,7 @@ install_frontend_deps() {
 install_backend_js_deps() {
   output_section "Installing and caching backend assets node modules"
 
-  cd "${build_path}/${phx_assets_path}"
+  cd "$(app_backend_path)/${phx_assets_path}"
   if [ -d ${cache_path}/node_modules ]; then
     mkdir -p node_modules
     cp -r ${cache_path}/node_modules/* node_modules/
@@ -123,7 +123,7 @@ install_backend_js_deps() {
   fi
 
   cp -r node_modules "${cache_path}"
-  PATH="${build_path}/${phx_assets_path}/node_modules/.bin":$PATH
+  PATH="$(app_backend_path)/${phx_assets_path}/node_modules/.bin":$PATH
 }
 
 install_npm_deps() {
@@ -151,13 +151,13 @@ compile_frontend() {
 move_frontend_dist() {
   output_section "Move frontend dist to phoenix priv folder"
 
-  mv $(app_frontend_path)/build "${build_path}priv/front"
+  mv $(app_frontend_path)/build "$(app_backend_path)/priv/front"
 }
 
 compile_backend_js() {
   output_section "Build and digest backend js"
 
-  cd "${build_path}/${phx_assets_path}"
+  cd "$(app_backend_path)/${phx_assets_path}"
 
   if [ -f "./yarn.lock" ]; then
     yarn deploy
@@ -168,74 +168,10 @@ compile_backend_js() {
   mix phx.digest
 }
 
-compile() {
-  cd $phoenix_dir
-  PATH=$build_dir/.platform_tools/erlang/bin:$PATH
-  PATH=$build_dir/.platform_tools/elixir/bin:$PATH
-
-  run_compile
-}
-
-run_compile() {
-  local custom_compile="${build_dir}/${compile}"
-
-  cd $phoenix_dir
-
-  has_clean=$(
-    mix help "${phoenix_ex}.digest.clean" 1>/dev/null 2>&1
-    echo $?
-  )
-
-  if [ $has_clean = 0 ]; then
-    mkdir -p ${cache_path}/phoenix-static
-    output_line "Restoring cached assets"
-    mkdir -p priv
-    rsync -a -v --ignore-existing ${cache_path}/phoenix-static/ priv/static
-  fi
-
-  cd $assets_dir
-
-  if [ -f $custom_compile ]; then
-    output_line "Running custom compile"
-    source $custom_compile 2>&1 | indent
-  else
-    output_line "Running default compile"
-    source ${build_pack_dir}/${compile} 2>&1 | indent
-  fi
-
-  cd $phoenix_dir
-
-  if [ $has_clean = 0 ]; then
-    output_line "Caching assets"
-    rsync -a --delete -v priv/static/ ${cache_path}/phoenix-static
-  fi
-}
-
 cache_versions() {
   output_line "Caching versions for future builds"
   echo $(node --version) >${cache_path}/node-version
   echo $(npm --version) >${cache_path}/npm-version
-}
-
-finalize_node() {
-  if [ $remove_node = true ]; then
-    remove_node
-  else
-    write_profile
-  fi
-}
-
-#write_profile() {
-#  output_line "Creating runtime environment"
-#  mkdir -p $build_dir/.profile.d
-#  local export_line="export PATH=\"\$HOME/.heroku/node/bin:\$HOME/.heroku/yarn/bin:\$HOME/bin:\$HOME/$phoenix_relative_path/node_modules/.bin:\$PATH\""
-#  echo $export_line >>$build_dir/.profile.d/phoenix_static_buildpack_paths.sh
-#}
-
-remove_node() {
-  output_line "Removing node and node_modules"
-  rm -rf $assets_dir/node_modules
-  rm -rf $heroku_dir/node
 }
 
 function node_download_file() {

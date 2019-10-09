@@ -46,7 +46,7 @@ install_hex
 install_rebar
 install_yarn
 
-extract_backend_to_root
+# extract_backend_to_root
 
 restore_app
 hook_pre_app_dependencies

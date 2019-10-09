@@ -1,13 +1,13 @@
 function restore_app() {
   if [ -d $(deps_backup_path) ]; then
-    mkdir -p ${build_path}/deps
-    cp -pR $(deps_backup_path)/* ${build_path}/deps
+    mkdir -p $(app_backend_path)/deps
+    cp -pR $(deps_backup_path)/* $(app_backend_path)/deps
   fi
 
   if [ $erlang_changed != true ] && [ $elixir_changed != true ]; then
     if [ -d $(build_backup_path) ]; then
-      mkdir -p ${build_path}/_build
-      cp -pR $(build_backup_path)/* ${build_path}/_build
+      mkdir -p $(app_backend_path)/_build
+      cp -pR $(build_backup_path)/* $(app_backend_path)/_build
     fi
   fi
 }
@@ -74,7 +74,7 @@ function app_dependencies() {
   local git_dir_value=$GIT_DIR
   unset GIT_DIR
 
-  cd $build_path
+  cd $(app_backend_path)
   output_section "Fetching app dependencies with mix"
   mix deps.get --only $MIX_ENV || exit 1
 
