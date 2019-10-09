@@ -73,12 +73,7 @@ install_yarn() {
 
     rm -rf $(yarn_path)
     mkdir -p "$(yarn_path)"
-    # https://github.com/yarnpkg/yarn/issues/770
-    if tar --version | grep -q 'gnu'; then
-      tar xzf /tmp/yarn.tar.gz -C "$dir" --strip 1 --warning=no-unknown-keyword
-    else
-      tar xzf /tmp/yarn.tar.gz -C "$dir" --strip 1
-    fi
+    tar xzf /tmp/yarn.tar.gz -C $(yarn_path) --strip 1
     chmod +x $(yarn_path)/bin/*
     PATH=$(yarn_path)/bin:$PATH
 
