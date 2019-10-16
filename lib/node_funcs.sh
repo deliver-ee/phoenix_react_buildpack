@@ -137,9 +137,9 @@ compile_frontend() {
 
   cd $(app_frontend_path)
   if [ -f "./yarn.lock" ]; then
-    REACT_APP_API_BASE_URL="/api" yarn build
+    REACT_APP_API_BASE_URL="/api" REACT_APP_GRAPHQL_URL="/graphql" yarn build
   else
-    REACT_APP_API_BASE_URL="/api" npm build
+    REACT_APP_API_BASE_URL="/api" REACT_APP_GRAPHQL_URL="/graphql" npm build
   fi
 }
 
