@@ -37,7 +37,6 @@ install_erlang
 download_elixir
 install_elixir
 
-
 download_node
 install_node
 
@@ -66,5 +65,9 @@ hook_post_compile
 
 backup_app
 backup_mix
+
+# delete_node after build to reduce slugsize
+delete_node
+
 write_profile_d_script
 write_export

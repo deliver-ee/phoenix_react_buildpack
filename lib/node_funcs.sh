@@ -42,8 +42,6 @@ install_node() {
     exit 1
   else
     mkdir -p $(node_path)
-
-        echo "       ## ## ## ## Installed Node at $(node_path)."
     # Move node (and npm) into .heroku/node and make them executable
     mv /tmp/node-v$node_version-linux-x64/* $(node_path)
     chmod +x $(node_path)/bin/*
@@ -164,6 +162,11 @@ compile_backend_js() {
 
   cd "$(app_backend_path)"
   mix phx.digest
+}
+
+delete_node() {
+  output_section "Deleting node at $(node_path)"
+  rm -rf $(node_path)
 }
 
 cache_versions() {
