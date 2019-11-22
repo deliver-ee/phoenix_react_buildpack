@@ -42,6 +42,8 @@ install_node() {
     exit 1
   else
     mkdir -p $(node_path)
+
+        echo "       ## ## ## ## Installed Node at $(node_path)."
     # Move node (and npm) into .heroku/node and make them executable
     mv /tmp/node-v$node_version-linux-x64/* $(node_path)
     chmod +x $(node_path)/bin/*
@@ -123,13 +125,13 @@ install_backend_js_deps() {
 
 install_npm_deps() {
   npm prune | indent
-  npm install --quiet --unsafe-perm --userconfig build_path/npmrc 2>&1 | indent
+  npm install --only=production --quiet --unsafe-perm --userconfig build_path/npmrc 2>&1 | indent
   npm rebuild 2>&1 | indent
   npm --unsafe-perm prune 2>&1 | indent
 }
 
 install_yarn_deps() {
-  yarn install --production --check-files --cache-folder ${cache_path}/yarn-cache --pure-lockfile 2>&1
+  yarn install --production --check-files --pure-lockfile 2>&1
 }
 
 compile_frontend() {
