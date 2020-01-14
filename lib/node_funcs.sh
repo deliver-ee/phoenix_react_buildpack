@@ -151,6 +151,9 @@ move_frontend_dist() {
 
   mkdir -p "$(app_backend_path)/priv/static/app"
   cp -r $(app_frontend_path)/build "$(app_backend_path)/priv/static/app"
+
+  output_section "Show frontend dist files in static/app directory"
+  ls "$(app_backend_path)/priv/static/app" -al
 }
 
 compile_backend_js() {
