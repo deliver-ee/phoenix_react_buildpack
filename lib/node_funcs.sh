@@ -141,6 +141,9 @@ compile_frontend() {
   else
     REACT_APP_API_BASE_URL="/api" REACT_APP_GRAPHQL_URL="/graphql" npm build
   fi
+
+  output_section "Show frontend dist files"
+  ls $(app_frontend_path)/build -al
 }
 
 move_frontend_dist() {
