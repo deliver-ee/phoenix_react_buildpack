@@ -55,7 +55,7 @@ install_yarn() {
   frontend_yarn="$(app_frontend_path)/yarn.lock"
   backend_yarn="$(app_backend_assets_path)/yarn.lock"
 
-  if [ -f $frontend_yarn -a -f $backend_yarn ]; then
+  if [ -f $frontend_yarn ] || [ -f $backend_yarn ]; then
 
     if [ ! $yarn_version ]; then
       output_line "Downloading and installing yarn lastest..."
