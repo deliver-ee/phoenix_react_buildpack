@@ -163,7 +163,7 @@ compile_backend_js() {
 
   if [ -f "./yarn.lock" ]; then
     yarn deploy
-  elif [ -f "./package.lock" ]; then
+  elif [ -f "./package-lock.json" ]; then
     npm deploy
   else
     echo "no backend js app to build detected"
