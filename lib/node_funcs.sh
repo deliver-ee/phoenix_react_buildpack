@@ -149,26 +149,22 @@ compile_frontend() {
 move_frontend_dist() {
   output_section "Move frontend dist to phoenix priv folder"
 
-  mkdir -p "$(app_backend_path)/priv/static"
-  cp -r $(app_frontend_path)/build "$(app_backend_path)/priv/static/app"
-
-  output_section "Show frontend dist files in static/app directory"
-  ls "$(app_backend_path)/priv/static/app" -al
+  mkdir -p "$(app_backend_path)/priv"
+  cp -r $(app_frontend_path)/build "$(app_backend_path)/priv/static"
 }
 
 compile_backend_js() {
-  output_section "Build and digest backend js"
+  output_section "Build backend js"
 
   cd "$(app_backend_path)/${phx_assets_path}"
 
   if [ -f "./yarn.lock" ]; then
     yarn deploy
-  else
+  elif [ -f "./package.lock" ]; then
     npm deploy
+  else
+    echo "no backend js app to build detected"
   fi
-
-  cd "$(app_backend_path)"
-  mix phx.digest
 }
 
 delete_node() {

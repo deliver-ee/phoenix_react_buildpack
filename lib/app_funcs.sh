@@ -105,6 +105,13 @@ function compile_app() {
   cd - >/dev/null
 }
 
+function generate_phx_digest() {
+  output_section "Generate Phoenix Static Ressources Digest"
+
+  cd "$(app_backend_path)"
+  mix phx.digest
+}
+
 function write_profile_d_script() {
   output_section "Creating .profile.d with env vars"
   mkdir -p $build_path/.profile.d
