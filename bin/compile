@@ -58,10 +58,10 @@ compile_backend_js
 install_frontend_deps
 compile_frontend
 move_frontend_dist
-# generate_phx_digest
 
 hook_pre_compile
 compile_app
+generate_phx_digest
 hook_post_compile
 
 backup_app
