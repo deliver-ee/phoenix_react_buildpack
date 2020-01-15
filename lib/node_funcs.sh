@@ -150,7 +150,10 @@ move_frontend_dist() {
   output_section "Move frontend dist to phoenix priv folder"
 
   mkdir -p "$(app_backend_path)/priv"
-  cp -r $(app_frontend_path)/build "$(app_backend_path)/priv/static"
+  cp -r "$(app_frontend_path)/build" "$(app_backend_path)/priv/static"
+
+  output_section "Show frontend dist files in static directory"
+  ls "$(app_backend_path)/priv/static" -al
 }
 
 compile_backend_js() {
